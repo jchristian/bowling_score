@@ -2,7 +2,7 @@ from random import randint
 from time import sleep
 import scoring_functions as sf
 
-#IGNORE THIS.
+# IGNORE THIS.
 # -----------------------------------
 # frame = 1
 # score = 0
@@ -33,13 +33,13 @@ import scoring_functions as sf
 # -------------------------------------------------
 
 
-#MAIN SCORING
-#initialize a full game with random inputs
+# MAIN SCORING
+# initialize a full game with random inputs
 game = []
 frame = 1
 score = 0
 while frame < 11:
-    #frames 1-9
+    # frames 1-9
     if frame != 10:
         ball_one = randint(0, 10)
         ball_two = randint(0, (10 - ball_one))
@@ -50,21 +50,21 @@ while frame < 11:
         else:
             game.append(str(ball_one) + '-' + str(ball_two))
         frame += 1
-    #filling the weird frame 10
+    # filling the weird frame 10
     elif frame == 10:
-        ball_one = randint(0,10)
+        ball_one = randint(0, 10)
         ball_two = randint(0, (10 - ball_one))
-        #first show is strike
+        # first show is strike
         if ball_one == 10:
-            box_two = randint(0,10)
-            #if shot two is a strike
+            box_two = randint(0, 10)
+            # if shot two is a strike
             if box_two == 10:
-                box_three = randint(0,10)
+                box_three = randint(0, 10)
                 if box_three == 10:
                     game.append('XXX')
                 else:
-                    game.append('XX'+ str(box_three))
-            #if shot two is not a strike
+                    game.append('XX' + str(box_three))
+            # if shot two is not a strike
             else:
                 box_three = randint(0, (10 - box_two))
                 if box_two + box_three == 10:
@@ -72,25 +72,23 @@ while frame < 11:
                 else:
                     game.append('X ' + str(box_two) + '-' + str(box_three))
         elif ball_one + ball_two == 10:
-            box_three = randint(0,10)
+            box_three = randint(0, 10)
             game.append(str(ball_one) + '/ ' + str(box_three))
         else:
             game.append(str(ball_one) + '-' + str(ball_two))
         frame += 1
 
 
-
-#shows the game
-print(game)
-#159
+# 159
 # game = ['5-3','9/','X','9-0','X','9/','7-2','X','X','9-0']
-# game = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'XXX']
+game = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X 9/']
+# shows the game
+print(game)
 
-
-#calculate the score of the game
+# calculate the score of the game
 frame = 1
 for i in game:
-    #frames 1-8
+    # frames 1-8
     if frame < 9:
         ball_one = i[0]
         if i[0] == 'X':
@@ -98,7 +96,7 @@ for i in game:
 
             # if next frame is a strike
             if next[0] == 'X':
-                #turkey
+                # turkey
                 turkey = game[frame + 1]
                 if turkey[0] == 'X':
                     score += 30
@@ -106,22 +104,22 @@ for i in game:
                     nexttwo = game[frame + 1]
                     score += (20 + int(nexttwo[0]))
 
-            #if next frame is a spare
+            # if next frame is a spare
             elif next[1] == '/':
                 score += 20
 
-            #if next frame is an open
+            # if next frame is an open
             else:
                 score += (10 + int(next[0]) + int(next[2]))
             frame += 1
 
-        #open
+        # open
         elif i[1] == '-':
             ball_two = i[2]
             score += (int(ball_one) + int(ball_two))
             frame += 1
 
-        #spare
+        # spare
         elif i[1] == '/':
             ball_one = i[0]
             next = game[frame]
@@ -131,17 +129,17 @@ for i in game:
                 score += (10 + int(next[0]))
             frame += 1
 
-    #frame 9. must account for tenth frame
+    # frame 9. must account for tenth frame
     elif frame == 9:
         ball_one = i[0]
         if i[0] == 'X':
             next = game[frame]
-            #10th frame
+            # 10th frame
             if next[0] == 'X':
                 if next[1] == 'X':
                     score += 30
                 else:
-                    score += (20 + int(next[1]))
+                    score += (20 + int(next[2]))
             else:
                 if next[1] == '/':
                     score += 20
@@ -169,7 +167,7 @@ for i in game:
         elif i[0] == 'X':
             if i[1] == 'X':
                 score += (20 + int(i[2]))
-            elif i[2] == '/':
+            elif i[3] == '/':
                 score += 20
             else:
                 score += (10 + int(i[1]) + int(i[4]))
