@@ -1,6 +1,10 @@
 from numpy.random import choice
 from random import randint
 
+#Main functions
+#generate a ten frame game using weighted first ball values
+#Tenth frame is next on the agenda
+
 
 def get_weighted_random_first_ball():
     l = []
