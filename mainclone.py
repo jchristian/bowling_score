@@ -144,6 +144,7 @@ while True:
                         score += (10 + int(i[3]))
                 elif i[1] == '-':
                     score += (int(i[0]) + int(i[2]))
+
         if score > 150:
             halfcounter += 1
         if score > highgame:

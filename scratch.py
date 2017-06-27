@@ -1,22 +1,20 @@
-import scoring_functions as sf
+# This is equivelant to scratch paper
+# misc. code, functions, data that i want to work with go here.
 
-class Game:
-    onegame = sf.onegame(10)
+class DoSomething(object):
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
-    def __init__(self, games):
-        self.games = games
+    def additon(self):
+        return self.a + self.b
 
-    def get_game(self):
-        return self.onegame
+class DoSomethingElse(DoSomething):
 
-    def get_series(self, games):
-        for i in range(games):
-            total += get_game
-
-
-
-
-
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
 
 
 
@@ -24,6 +22,14 @@ class Game:
 
 
 
+
+# default_bowler_profile = {
+#     'sw': [0, 0.001, 0.0001, 0.001, 0.001, 0.005, 0.03, 0.0829, 0.1, 0.2, 0.5],
+#     'spw': [.80, .20],
+#     'mpw': [.50, .50]
+# }
+#
+#
 
 # for i in range(10):
 #     print(get_weighted_random_first_ball())
