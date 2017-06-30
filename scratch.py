@@ -1,26 +1,37 @@
 # This is equivelant to scratch paper
 # misc. code, functions, data that i want to work with go here.
 
-class DoSomething(object):
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
-
-    def additon(self):
-        return self.a + self.b
-
-class DoSomethingElse(DoSomething):
-
-    def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+#broken game
+#['X', '8/', 'X', '90', '9/', '9/', 'X', '9/', 'X', 'X 7-1']
 
 
 
 
 
 
+# working with testing
+# class DoSomething(object):
+#     def __init__(self, a, b):
+#         self.a = a
+#         self.b = b
+#
+#     def additon(self, a, b):
+#         return a + b
+#
+# class DoSomethingElse(DoSomething):
+#
+#     def __init__(self, a, b, c):
+#         self.a = a
+#         self.b = b
+#         self.c = c
+#
+#     def dss(self):
+#         x = self.additon(self.a, self.b)
+#         return x + self.c
+#
+#     def dsstwo(self, a, b):
+#         z = a + b
+#         return z
 
 
 # default_bowler_profile = {

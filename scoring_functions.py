@@ -7,10 +7,11 @@ import bowler_profiles as bp
 #spares are also weighted
 #Tenth frame is next on the agenda
 
+
 class BowlingScores(object):
 
-    def __init__(self, num_of_games, profile):
-        self.num_of_games = num_of_games
+    def __init__(self, profile):
+        # self.num_of_games = num_of_games
         self.profile = profile
 
     def get_games(self):
@@ -48,7 +49,7 @@ class BowlingScores(object):
             if self.get_single_pin():
                 game.append(str(first_ball) + "/")
             else:
-                game.append(str(first_ball) + "0")
+                game.append(str(first_ball) + "-0")
         else:
             if self.get_multi_pin():
                 game.append(str(first_ball) + "/")
@@ -91,12 +92,11 @@ class BowlingScores(object):
         return game
 
     def print_series(self):
-        for i in range(self.num_of_games):
-            print(self.get_games())
-
-    def get_series(self):
-        for i in range(self.num_of_games):
-            return(self.get_games())
+        print(self.get_games())
+    #
+    # def get_series(self):
+    #     for i in range(self.num_of_games):
+    #         return(self.get_games())
 
 class Score(object):
 
@@ -201,8 +201,3 @@ class Score(object):
                 elif i[1] == '-':
                     score += (int(i[0]) + int(i[2]))
         return score
-
-series = BowlingScores(2, bp.c_weier)
-games = series.print_series()
-
-
