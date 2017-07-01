@@ -7,7 +7,7 @@ highgame = 0
 highgamenum = 0
 actualgame = []
 while True:
-    if counter < 25000:
+    if score < 220:
         game = []
         frame = 1
         score = 0

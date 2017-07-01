@@ -72,7 +72,7 @@ class BowlingScores(object):
                     if self.get_single_pin():
                         game.append('X ' + str(box_two) + "/")
                     else:
-                        game.append('X ' + str(box_two) + "0")
+                        game.append('X ' + str(box_two) + "-0")
                 else:
                     if self.get_multi_pin():
                         game.append('X ' + str(box_two) + "/")
