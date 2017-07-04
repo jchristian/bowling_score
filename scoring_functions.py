@@ -2,14 +2,14 @@ from numpy.random import choice
 from random import randint
 import bowler_profiles as bp
 
-#Main functions
-#generate a ten frame game using weighted first ball values
-#spares are also weighted
-#Tenth frame is next on the agenda
+
+# Main functions
+# generate a ten frame game using weighted first ball values
+# spares are also weighted
+# Tenth frame is next on the agenda
 
 
 class BowlingScores(object):
-
     def __init__(self, profile):
         # self.num_of_games = num_of_games
         self.profile = profile
@@ -20,7 +20,7 @@ class BowlingScores(object):
 
     def get_weighted_random_first_ball(self):
         l = []
-        for i in range(0,11):
+        for i in range(0, 11):
             l.append(i)
         return (choice(l, p=self.profile['sw']))
 
@@ -93,13 +93,13 @@ class BowlingScores(object):
 
     def print_series(self):
         print(self.get_games())
-    #
-    # def get_series(self):
-    #     for i in range(self.num_of_games):
-    #         return(self.get_games())
+        #
+        # def get_series(self):
+        #     for i in range(self.num_of_games):
+        #         return(self.get_games())
+
 
 class Score(object):
-
     def __init__(self, game):
         self.game = game
 
