@@ -98,6 +98,27 @@ class BowlingScores(object):
         #     for i in range(self.num_of_games):
         #         return(self.get_games())
 
+class Frame(object):
+    def __init__(self, data):
+        self.data = data
+
+    def is_strike(self):
+        return self.data[0] == 'X'
+
+    def is_spare(self):
+        return len(self.data) == 2 and self.data[1] == '/'
+
+    def is_open(self):
+        return not (self.is_spare() or self.is_strike())
+
+    def get_first_ball_count(self):
+        return 10 if self.is_strike() else self._get_count(self.data[0])
+
+    def get_second_ball_count(self):
+        return self._get_count(self.data[2])
+
+    def _get_count(self, character_data):
+        return int(character_data)
 
 class Score(object):
     def __init__(self, game):
@@ -108,82 +129,79 @@ class Score(object):
 
     def calculate_score(self, game):
         score = 0
-        frame = 1
+        frame_index = 1
         for i in game:
             # frames 1-8
-            if frame < 9:
-                ball_one = i[0]
-                if i[0] == 'X':
-                    next = game[frame]
+            if frame_index < 9:
+                current_frame = Frame(i)
+                if current_frame.is_strike():
+                    next_frame = Frame(game[frame_index])
 
                     # if next frame is a strike
-                    if next[0] == 'X':
+                    if next_frame.is_strike():
                         # turkey
-                        turkey = game[frame + 1]
-                        if turkey[0] == 'X':
+                        two_frames_ahead = Frame(game[frame_index + 1])
+                        if two_frames_ahead.is_strike():
                             score += 30
                         else:
-                            nexttwo = game[frame + 1]
-                            score += (20 + int(nexttwo[0]))
+                            score += (20 + two_frames_ahead.get_first_ball_count())
 
                     # if next frame is a spare
-                    elif next[1] == '/':
+                    elif next_frame.is_spare():
                         score += 20
 
                     # if next frame is an open
                     else:
-                        score += (10 + int(next[0]) + int(next[2]))
-                    frame += 1
+                        score += (10 + next_frame.get_first_ball_count() + next_frame.get_second_ball_count())
+                    frame_index += 1
 
                 # open
-                elif i[1] == '-':
-                    ball_two = i[2]
-                    score += (int(ball_one) + int(ball_two))
-                    frame += 1
+                elif current_frame.is_open():
+                    score += (current_frame.get_first_ball_count() + current_frame.get_second_ball_count())
+                    frame_index += 1
 
                 # spare
-                elif i[1] == '/':
-                    ball_one = i[0]
-                    next = game[frame]
-                    if next[0] == 'X':
+                elif current_frame.is_spare():
+                    next_frame = Frame(game[frame_index])
+                    if next_frame.is_strike():
                         score += 20
                     else:
-                        score += (10 + int(next[0]))
-                    frame += 1
+                        score += (10 + next_frame.get_first_ball_count())
+                    frame_index += 1
 
             # frame 9. must account for tenth frame
-            elif frame == 9:
+            elif frame_index == 9:
                 ball_one = i[0]
                 if i[0] == 'X':
-                    next = game[frame]
+                    next_frame = game[frame_index]
                     # 10th frame
-                    if next[0] == 'X':
-                        if next[1] == 'X':
+                    if next_frame[0] == 'X':
+                        if next_frame[1] == 'X':
                             score += 30
                         else:
-                            score += (20 + int(next[2]))
+                            score += (20 + int(next_frame[2]))
                     else:
-                        if next[1] == '/':
+                        if next_frame[1] == '/':
                             score += 20
-                        elif next[1] == '-':
-                            score += (10 + int(next[0]) + int(next[2]))
+                        elif next_frame[1] == '-':
+                            score += (10 + int(next_frame[0]) + int(next_frame[2]))
                 # open
                 elif i[1] == '-':
                     ball_two = i[2]
                     score += (int(ball_one) + int(ball_two))
-                    frame += 1
+                    frame_index += 1
                 # spare
                 elif i[1] == '/':
                     ball_one = i[0]
-                    next = game[frame]
-                    if next[0] == 'X':
+                    next_frame = game[frame_index]
+                    if next_frame[0] == 'X':
                         score += 20
                     else:
-                        score += (10 + int(next[0]))
-                frame += 1
+                        score += (10 + int(next_frame[0]))
+                frame_index += 1
 
             # frame 10
-            elif frame == 10:
+            elif frame_index == 10:
                 if i == 'XXX':
                     score += 30
                 elif i[0] == 'X':
